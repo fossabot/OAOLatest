@@ -1,0 +1,299 @@
+ <div data-aos="fade-up">
+               <h3 class="card-title page-heading-mobile" data-step="1">Personal Information</h3>
+               <div class="contact-info">
+                  
+
+                           	<form class="form" (ngSubmit)="onSubmit()">
+                        <div class="row">
+						
+                     <!--</form> *ngIf="showAddress==true" -->
+
+                  </div>
+
+                 <div>
+                     <h3 class="card-title page-heading-desktop">Tell us where you live </h3>
+                      <small [hidden]="addrErr==false" class="text-danger">
+                                         {{configMsg?.addrNotFound}}
+                                </small>
+                                 <small [hidden]="paddrErr==false" class="text-danger">
+                                         {{configMsg?.PaddrNotFound}}
+                                </small>
+                     <!--<form id="contactForm">-->
+                         
+<!--<div style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; padding-left: 250px; background-color: rgb(255, 255, 255);">
+	<form>
+		<table>
+			<tr>
+				<td>Address Line:</td>
+				<td style="width: 10px;"></td>
+				<td>
+				<input name="Address line 1" id="addline1" type="text" size="50" />
+				</td>
+			</tr>
+			<tr>
+				<td>Suburb:</td>
+				<td style="width: 10px;"></td>
+				<td><input name="Suburb" id="suburb" type="text" size="30" /></td>
+			</tr>
+			<tr>
+				<td>State:</td>
+				<td style="width: 10px;"></td>
+				<td><input name="State" id="state" type="text" size="10" /></td>
+			</tr>
+			<tr>
+				<td>Postcode:</td>
+				<td style="width: 10px;"></td>
+				<td>
+				<input name="Postcode" id="postcode" type="text" size="10" /></td>
+			</tr>
+			<tr>
+				<td>Country:</td>
+				<td style="width: 10px;"></td>
+				<td><input name="Country" id="country" type="text" size="20" /></td>
+			</tr>
+      <tr>
+				<td>DPID:</td>
+				<td style="width: 10px;"></td>
+				<td><input name="Dpid" id="dpid" type="text" size="20" /></td>
+      </tr>
+		</table></form></div>-->
+               
+                        <div id="homeAutomaticAddress">
+                           <div class="row">
+                               <!--<div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                       <label for="housenum" class="form-label">Unit/House No. </label>
+                                       <input type="text" required class="form-control txtbox" id="housenum"  [(ngModel)]="model.housenum"  name="housenum" #housenum="ngModel">
+                                    </div>
+                                 </div>-->
+								<div class="col-md-8 col-sm-8 has-min-height-106">
+                                 <div class="form-group">
+                                    <label for="homeLookup" class="form-label">Residential address lookup </label>
+                                    <div id="automaticLookUp">
+                                          <!-- ////////////////////// 
+                                          <input (change)="emptyPostCode()" type="text" [(ngModel)] = "model.address"
+                                                [options]='options'
+                                                 (setAddress) = "model.address=$event.formatted_address"
+                                                 (street_number) = 'model.streetnum=$event'
+                                                 (street)= 'model.streetname=$event'
+                                                 (state)='model.state=$event'
+                                                 (postal_code)='model.postcode=$event'
+                                                 id="autocomplete"
+                                                 name="address"
+                                                 #address="ngModel" class="form-control txtbox"
+                                                 [disabled]="no_address_found_flag=='Y' && !showCustomAddr"
+                                                 [required]="no_address_found_flag=='N'"
+                                                 ng2-google-place-autocomplete />-->
+                                                 <input type="text" [disabled]="no_address_found_flag=='Y' && !showCustomAddr" [(ngModel)]='model.address' id='addline1' name='addline1' #address="ngModel" class="form-control txtbox">
+                                      <div  *ngIf="!model.postcode">We are unable to find your address. Try again
+                                          or if you prefer, tell us your address line by line here instead. <a href="JavaScript:void(0);" (click)="showCustomAddressFields()"
+                                             >(Click here)</a>
+                                              <!--value="{{model.housenum}} {{model.streetnum}} {{model.streetname}} {{model.streettype}} {{model.suburb}} {{model.postcode}} {{model.state}}"-->
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div *ngIf="!showCustomAddr">
+                           <div class="form-group has-back-lookup">
+                              <!--<div class="row">
+                                 <div class="col-md-12">
+                                    <label for="homeLookup" class="form-label">Home address lookup </label>
+                                 </div>
+                              </div>-->
+                              <div class="row">
+                                 
+									<div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                       <label for="housenum" class="form-label">Unit/House No. </label>
+                                       <input type="text" class="form-control txtbox" id="housenum"  [(ngModel)]="model.housenum"  name="housenum" #housenum="ngModel">
+                                    </div>
+                                 </div>
+									<div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                       <label for="streetnum" class="form-label">Street number </label>
+                                       <input type="text" class="form-control txtbox" id="streetnum" [(ngModel)]="model.streetnum"  name="streetnum" #streetnum="ngModel">
+                                    </div>
+                                 </div>
+									<div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                       <label for="streetname" class="form-label">Street name </label>
+                                       <input type="text" class="form-control txtbox" id="streetname" [(ngModel)]="model.streetname"  name="streetname" #streetname="ngModel">
+                                    </div>
+                                 </div>
+									<div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                       <label for="streettype" class="form-label">Street type </label>
+                                       <select class="form-control txtbox" id="streettype" [(ngModel)]="model.streettype"  name="streettype" #streettype="ngModel">
+                                          <option value="" >Select</option>
+                                          <option *ngFor="let details of street" [ngValue]='details'>
+                                                  {{details}}
+                                       </option>
+                                       </select>
+                                    </div>
+                                 </div>
+									<div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                       <label for="suburb" class="form-label">Suburb </label>
+                                       <input type="text" class="form-control txtbox" id="suburb" [(ngModel)]="model.suburb"  name="suburb" #suburb="ngModel">
+                                    </div>
+                                 </div>
+									<div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                       <label for="state" class="form-label">State</label>
+                                       <select class="form-control txtbox" id="state" [(ngModel)]="model.state"  name="state" #state="ngModel">
+                                         <option value="" >Select</option>
+                                         <option *ngFor="let details of state_drop" [ngValue]='details'>
+                                                  {{details}}
+                                       </option>
+                                       </select>
+                                    </div>
+                                 </div>
+									<div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                       <label for="postcode" class="form-label">Postcode</label>
+                                       <input type="text" class="form-control txtbox" id="postcode" [(ngModel)]="model.postcode"  name="postcode" #postcode="ngModel">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="back-to-auto"> <a href="JavaScript:void(0);" (click)="hideaddress()"> <img src="/assets/images/back_icon.svg" alt="back_icon"> Back
+                                 to quick search </a>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="form-group" id="postalCheck">
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <div class="checkbox">
+                                    <input id="postalCheckBtn" class="styled" type="checkbox"  [(ngModel)]="model.postal_home_address_flag" name="postal_home_address_flag" #postal_home_address_flag="ngModel" [checked]="checked" >
+                                    <label for="postalCheckBtn">Mailing address different from Residential Address</label>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div [hidden]="!model.postal_home_address_flag" >
+                           <div class="row">
+								<!--<div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                        <label for="phousenum" required class="form-label">Unit/House No. </label>
+                                       <input type="text" class="form-control txtbox" id="phousenum"  [(ngModel)]="model.phousenum"  name="phousenum" #phousenum="ngModel">
+                                    </div>
+                                 </div>-->
+									
+                                <div class="col-md-8 col-sm-8 has-min-height-106">
+                                 <div class="form-group">
+                                    <label for="email" class="form-label">Mailing address lookup</label>
+                                   <div id="automaticLookUp">
+                                      
+                                          <!-- ////////////////////// -->
+                                          <!--<input (change)="emptyPostCode()" type="text" [(ngModel)] = "model.paddress"
+                                                [options]='options'
+                                                (setAddress) = "model.paddress=$event.formatted_address"
+                                                (street_number) = 'model.pstreetnum=$event'
+                                                (street)= 'model.pstreetname=$event'
+                                                (state)='model.pstate=$event'
+                                                (postal_code)='model.ppostcode=$event'
+                                                id="autocomplete"
+                                                name="paddress"
+                                                #paddress="ngModel" class="form-control txtbox"
+                                                 [disabled]="paddrShow==true"
+                                                 [required]="model.postal_home_address_flag==false"
+                                                ng2-google-place-autocomplete />-->
+                               <input type="text" [disabled]="paddrShow==true" [(ngModel)]='model.paddress' id='addline2' name='addline2' #paddress="ngModel" class="form-control txtbox">                  
+                                      <div  *ngIf="!model.ppostcode">We are unable to find your address. Try again
+                                          or if you prefer, tell us your address line by line here instead. <a href="JavaScript:void(0);" (click)="showCustomPostalAddressFields()"
+                                             >(Click here)</a>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                             
+                           </div>
+                        </div>
+                      <div *ngIf="!showCustomPAddr" [hidden]="!model.postal_home_address_flag">
+                           <div class="form-group has-back-lookup">
+                            <!--  <div class="row">
+                                 <div class="col-md-12">
+                                    <label for="homeLookup" class="form-label">Postal address lookup</label>
+                                 </div>
+                              </div>-->
+                              <div class="row">
+									<div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                        <label for="phousenum" class="form-label">Unit/House No. </label>
+                                       <input type="text" class="form-control txtbox" id="phousenum"  [(ngModel)]="model.phousenum"  name="phousenum" #phousenum="ngModel">
+                                    </div>
+                                 </div>
+                                  <div class="back-to-auto"> <a href="JavaScript:void(0);" (click)="hidePaddress()"> <img src="/assets/images/back_icon.svg" alt="back_icon"> Back
+                                 to quick search </a>
+                              </div>
+                        
+									<div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                       <label for="pstreetnum" class="form-label">Street number </label>
+                                       <input type="text" class="form-control txtbox" id="pstreetnum" [(ngModel)]="model.pstreetnum"  name="pstreetnum" #pstreetnum="ngModel">
+                                    </div>
+                                 </div>
+									<div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                       <label for="pstreetname" class="form-label">Street name </label>
+                                       <input type="text" class="form-control txtbox" id="pstreetname" [(ngModel)]="model.pstreetname"  name="pstreetname" #pstreetname="ngModel">
+                                    </div>
+                                 </div>
+									<div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                       <label for="pstreettype" class="form-label">Street type </label>
+                                       <select class="form-control txtbox" id="pstreettype" [(ngModel)]="model.pstreettype"  name="pstreettype" #pstreettype="ngModel">
+                                         <option value="" >Select</option>
+                                          <option *ngFor="let details of street" [ngValue]='details'>
+                                                  {{details}}
+                                       </option>
+                                       </select>
+                                    </div>
+                                 </div>
+									<div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                       <label for="psuburb" class="form-label">Suburb </label>
+                                       <input type="text" class="form-control txtbox" id="psuburb" [(ngModel)]="model.psuburb"  name="psuburb" #psuburb="ngModel">
+                                    </div>
+                                 </div>
+									<div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                       <label for="pstate" class="form-label">State</label>
+                                       <select class="form-control txtbox" id="pstate" [(ngModel)]="model.pstate"  name="pstate" #pstate="ngModel">
+                                          <option value="" >Select</option>
+                                          <option *ngFor="let details of state_drop" [ngValue]="details">
+                                                  {{details}}
+                                       </option>
+                                       </select>
+                                    </div>
+                                 </div>
+									<div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                       <label for="ppostcode" class="form-label">Postcode</label>
+                                       <input type="text" class="form-control txtbox" id="ppostcode" [(ngModel)]="model.ppostcode"  name="ppostcode" #ppostcode="ngModel">
+                                    </div>
+                                 </div>
+                              </div>
+                              
+                           </div>
+                        </div>
+
+                  </div>
+                  
+                  <div class="form-btn-wrapper">
+                   <a tabindex="0"  class="btn btn-icon-back">  <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="updateSection()"> </a>
+                   <!-- Condition for communication address -->
+                               <!-- <button type="submit" tabindex="0" class="btn btn-form-primary ladda-button" data-dismiss="modal" [ladda]="isLoading" data-style="expand-right"
+                                    [disabled]="!(!(model.phousenum==null || model.phousenum=='' || model.ppostcode=='' || model.ppostcode==null) || model.postal_home_address_flag) || model.housenum=='' || model.housenum==null || model.postcode=='' || model.postcode==null"
+                                    data-spinner-color="white"><span class="ladda-label">SAVE & CONTINUE</span></button>-->
+                                <button type="submit" tabindex="0" class="btn btn-form-primary ladda-button" data-dismiss="modal" [ladda]="isLoading" data-style="expand-right"
+                                    [disabled]="model.postcode == '' || model.postcode == '1234' || (model.postal_home_address_flag == true && (model.ppostcode == '' || model.ppostcode == '1234' )) "       data-spinner-color="white"><span class="ladda-label">SAVE & CONTINUE</span></button>
+                                </div>
+                     </form>
+               </div>
+    </div>
+           <!-- wrapper -->
+          
